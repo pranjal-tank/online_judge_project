@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    margin: 0;
+    padding: 0;
+    background-color: #191919;
+}
+#main_logo{
+    padding: 40px 0px 10px 20px;
+    color: aliceblue;
+}
+
+a{
+    text-decoration: none;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-collapse: collapse;
+}
+tr{
+    border-bottom: 1px solid #ddd;
+}
+tr:hover{
+    background-color:#cec9c9;
+}
+th{
+    background-color: #696969;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0px 5px 0px;
+}
+
+#problem_code{
+    padding: 5px 0px 5px 0px;
+    width: 10%;
+    text-align: center;
+}
+
+#problem_nm{
+    padding: 5px 0px 5px 0px;
+    width: 50%;
+    text-align: center;
+}
+
+#problem_diff{
+    padding: 5px 0px 5px 0px;
+    width: 15%;
+    text-align: center;
+}
+
+#easy{
+    color: #58cc06;
+}
+
+#medium{
+    color: rgb(255, 162, 0);
+}
+
+#hard{
+       color: red;
+}
+#table_caption{
+    text-align: center;
+    padding: 20px 60px 10px 20px;
+}
+#login_div,#welcome_div{
+   float: right;
+   padding: 3% 0% 3% 3%;
+}
+#login_button{
+    border: 0;
+    background:none;
+    color: white;
+    text-align: center;
+    border: 2px solid white;
+    padding: 5px 7px 5px 7px;
+    outline: none;
+    border-radius: 24px;
+}
+#login_button:hover,#reg_button:hover,#logout_button:hover{
+    background: white;
+    color: black;
+}
+#reg_div,#logout_div{
+    float: right;
+    padding: 3% 2% 3% 1%;
+}
+#reg_button,#logout_button{
+     border: 0;
+     background:none;
+     color: white;
+     text-align: center;
+     border: 2px solid white;
+     padding: 5px 7px 5px 7px;
+     outline: none;
+     border-radius: 24px;
+}
+#welcome{
+    color: white;
+    font-size: 23px;
+}
+.search{
+   margin-left: 54.2%;
+   padding-bottom: 0.3%;
+}
+#go{
+    background: none;
+    cursor: pointer;
+}
+

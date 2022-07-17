@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leaderboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'leaderboard.css'%}">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+</head>
+<body>
+    <header>
+        <div id="lb_heading">
+           <h1>Leaderboard</h1>
+        </div>
+    </header>
+    <main>
+    <table>
+        <tr>
+            <th>User</th>
+            <th>Code-Problem</th>
+            <th>Difficulty</th>
+            <th>Verdict</th>
+            <th>Language</th>
+            <th>Submission time</th>
+        </tr>
+        {% for verdict in verdict%}
+        <tr>
+            <td>{{verdict.uname}}</td>
+            <td>{{verdict.problem_code}}-{{verdict.solution_problem}}</td>
+            <td>
+                {% if verdict.problem_diff == 'easy' %}
+                <span id="easy">{{verdict.problem_diff}}</span>
+                {% endif %}
+
+                {% if verdict.problem_diff == 'medium' %}
+                <span id="medium">{{verdict.problem_diff}}</span>
+                {% endif %}
+
+                {% if verdict.problem_diff == 'hard' %}
+                <span id="hard">{{verdict.problem_diff}}</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if verdict.verdict == 'AC' %}
+                <span id="AC">{{verdict.verdict}}</span>
+                {% endif %}
+
+                {% if verdict.verdict == 'WA' %}
+                <span id="WA">{{verdict.verdict}}</span>
+                {% endif %}
+
+                {% if verdict.verdict == 'CE' %}
+                <span>{{verdict.verdict}}</span>
+                {% endif %}
+            </td>
+            <td>{{verdict.solution_lang}}</td>
+            <td>{{verdict.submission_time}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </main>
+</body>
+</html>

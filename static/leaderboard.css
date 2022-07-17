@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#lb_heading{
+    text-align: center;
+    padding:4% 0% 2% 0%;
+    text-decoration: underline;
+}
+table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+th{
+    text-align: center;
+    background-color: #696969;
+    color: #fff;
+    padding: 0.5% 0% 0.5% 0%;
+}
+tr:hover{
+    background-color: #cec9c9;
+}
+td{
+    text-align: center;
+    padding: 0.5% 0% 0.5% 0%;
+    border-bottom: 1px solid #ddd;
+}
+#AC{
+    color: #58cc06;
+}
+#WA{
+    color: #c41d07;
+}
+#easy{
+    color: #58cc06;
+}
+
+#medium{
+    color: rgb(255, 162, 0);
+}
+
+#hard{
+       color: red;
+}

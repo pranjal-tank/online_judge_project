@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>problem page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'problem_page.css' %}">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+</head>
+<body>
+    <header>
+        <span id="home_span">
+        <a href="{% url 'index' %}">
+            <button id="home">
+                Home
+            </button>
+        </a>
+        </span>
+        <h1 id="problem_nm">{{problem_detail.problem_nm}}</h1>
+    </header>
+    <main>
+                <div>
+                    <p style="white-space: pre-line;">{{problem_detail.problem_st | safe}}</p>
+                </div>
+                <hr>
+                <div>
+                    <h3>Input Format</h3>
+                    <p style="white-space: pre-line;">{{problem_detail.in_formate | safe}}</p>
+                    <h3>Output Format</h3>
+                    <p style="white-space: pre-line;">{{problem_detail.out_formate | safe}}</p>
+                </div>
+                <hr>  
+                <h3>Sample testcases</h3>  
+                <div>
+                    <table>
+                        <tr>
+                            <th class="input">Input</th>
+                            <th class="output">Output</th>
+                        </tr>
+                        <tr>
+                            <td class="input"><p style="white-space: pre;">{{problem_testcase.problem_input}}</p></td>
+                            <td class="output"><p style="white-space: pre;">{{problem_testcase.problem_output}}</p></td>
+                        </tr>
+                    </table>
+                </div>
+                <hr>
+    </main>
+    <footer>
+        {% block content %}
+        <form method="post" action="{% url 'leaderboard' problem_detail.id %} " enctype="multipart/form-data">
+            {% csrf_token %}
+        <div id="language_list">
+        <select name="language">
+          <option value="select language">select language</option>
+          <option value="PYTH3">PYTH3</option>
+          <option value="C++">C++</option>
+          <option value="C">C</option>
+        </select>
+        </div>
+        <div>
+            <textarea id="usercode" name="user_problem_code" placeholder="submit your code here!" rows="35" spellcheck="false"></textarea>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div>
+            <input type="file" name="codefile"><button id="submit" type="submit" name="submit">Submit</button>
+            {% if invalid_file != '' %}
+            <p id="invalid_file">{{invalid_file}}</p>
+            {% endif %}
+            <p><strong>NOTE: </strong>The file should be a .py, .cpp or .c file</p>
+        </div>
+        {% else %}
+        <span style="background-color: rgb(255, 114, 114);border-radius:20px;padding: 0px 7px 0px 7px;">Please <strong>Login</strong> to submit your code</span>
+        {% endif %}
+        </form>
+        {% endblock %}
+    </footer>
+</body>
+</html>

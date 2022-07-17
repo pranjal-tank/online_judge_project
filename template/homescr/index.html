@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homescreen</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    <header>
+        {% if request.user.is_authenticated %}
+        <div id="logout_div">
+            <a href="{% url 'logout' %}">
+                <button id="logout_button">Logout</button>
+            </a>
+        </div>
+        <div id="welcome_div">
+            <p id="welcome">Welcome! {{user.get_username }}</p>
+        </div>
+        {% else %}
+        <div id="reg_div">
+            <a href="{% url 'signup' %}">
+             <button id="reg_button">Register</button>
+            </a>
+        </div>
+        <div id="login_div">
+            <a href="{% url 'login' %}">
+             <button id="login_button">Login</button>
+            </a>
+        </div>
+        {% endif %}
+       <h1 id="main_logo">THE OJ</h1>
+       <br>
+    </header>
+    <main>
+        <caption><h2 id="table_caption">Problem Set</h2></caption>
+        <div class="search">
+        <form method="post" action="{% url 'searchproblem' %}">
+            {% csrf_token %}
+            <select name="sort_by_diff">
+                <option value="sort by difficulty">sort by difficulty</option>
+                <option value="easy">easy</option>
+                <option value="medium">medium</option>
+                <option value="hard">hard</option>
+            </select>
+            <input type="text" placeholder="search problem by code" name="pc">
+            <button type="submit" id="go">GO</button>
+        </form>
+        </div> 
+        <table> 
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Difficulty</th>
+            </tr>
+            
+            {% for q in question %}
+                    <tr>
+                    <td id="problem_code">{{q.problem_code}}</td>
+                    <td id="problem_nm"><a href="{% url 'problem_page' q.id %}">{{q.problem_nm}}</a></td>
+                    <td id="problem_diff">
+                        {% if  q.problem_diff == 'easy' %}
+                            <span id="easy">&nbsp;&nbsp;&nbsp;{{q.problem_diff}}&nbsp;&nbsp;&nbsp;</span>
+                        {% endif %}
+
+                        {% if  q.problem_diff == 'medium' %}
+                            <span id="medium">&nbsp;&nbsp;&nbsp;{{q.problem_diff}}&nbsp;&nbsp;&nbsp;</span>
+                        {% endif %}
+
+                        {% if  q.problem_diff == 'hard' %}
+                            <span id="hard">&nbsp;&nbsp;&nbsp;{{q.problem_diff}}&nbsp;&nbsp;&nbsp;</span>
+                        {% endif %}
+                    </td>
+                    </tr>
+            {% endfor %}
+        </table>
+    </main>
+</body>
+</html>

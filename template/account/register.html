@@ -1,0 +1,41 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+</head>
+<body>
+    <header>
+        <h1 id="main_logo">THE OJ</h1>
+        <br>
+     </header>
+    <main> 
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            <strong>Message: </strong>{{message}}
+        </div>
+        {% endfor %}
+    <form class="reg_form" method="post" action="">
+        <h2>Register</h2>
+        {% csrf_token %}
+        {% render_field form.username id="user" placeholder="Create username" %}
+        <br>
+        {{form.email}}
+        <br>
+        {% render_field form.password1 id="password1" placeholder="Create password" %}
+        <br>
+        {% render_field form.password2 id="password2" placeholder="Conform Password" %}
+        <br>
+        <input id="register_button" type="submit" value="register" name="create_user">
+        {% for error in form %}
+          {{error.errors}}
+        {% endfor %}
+    </form>
+    </main>
+</body>
+</html>

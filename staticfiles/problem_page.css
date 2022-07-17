@@ -1,0 +1,70 @@
+#problem_nm{
+    padding-top: 10px;
+    padding-bottom: 30px;
+    text-decoration: underline;
+}
+div{
+    overflow-wrap: break-word
+}
+p{
+    text-align:left;
+    padding: 0% 20% 0% 0%;
+}
+h3{
+    text-decoration: underline;
+}
+hr{
+    margin-left: 0%;
+    width: 80%;
+}
+#usercode{
+  resize: none;
+  border-radius: 3px;
+  background-color: rgb(239, 239, 239);
+  border: 1px solid black;
+  color: black;
+  width: 50%;
+}
+#home_span{
+    padding: 0px 0px 0px 10px;
+}
+#home{
+    border: 0;
+    background: none;
+    margin: 7px auto;
+    text-align: center;
+    border: 2px solid black;
+    outline: none;
+    width: 60px;
+    color: black;
+    border-radius: 24px;
+}
+#home:hover{
+    background: black;
+    color: white;
+ }
+#language_list{
+    padding-bottom: 5px;
+}
+#submit{
+    margin-left: 29.7%;
+}
+table{
+    width: 15%;
+    border-collapse: collapse;
+    background-color: #F7F8FC;
+    border-radius: 1px;
+}
+th{
+   text-align: left;
+   border-bottom: 0.5px solid rgb(173, 172, 172);
+}
+.input{
+    border-right: 0.5px solid rgb(173, 172, 172);
+}
+.output{
+    padding-left: 5px;
+}
+#invalid_file{
+   color: red;
+}

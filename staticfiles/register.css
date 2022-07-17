@@ -1,0 +1,70 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    margin: 0;
+    padding: 0;
+    background-color: #191919;
+}
+#main_logo{
+    padding: 40px 0px 10px 20px;
+    color: aliceblue;   
+}
+.reg_form{
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #191919;
+    text-align: center;
+    border-radius: 10px;
+}
+.reg_form h2{
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding-bottom: 5%;
+}
+#email,#user,#password1,#password2{
+    border: 0;
+    background: none;
+    margin: 10px auto;
+    text-align: center;
+    border: 2px solid snow;
+    padding: 5px 7px 5px 7px;
+    width: 80%;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+#email:focus,#user:focus,#password1:focus,#password2:focus{
+    width: 280px;
+    border-color: #2ecc71;
+}
+#register_button{
+    border: 0;
+    background: none;
+    margin: 10px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 5px 7px 5px 7px;
+    width: 50%;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+#register_button:hover{
+   background: #2ecc71;
+}
+.errorlist{
+    color: rgb(255, 0, 0);
+}
+.alert{
+    background-color: rgb(255, 193, 78);
+    padding: 5px;
+}
