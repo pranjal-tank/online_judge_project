@@ -28,12 +28,13 @@ TEMPLATE_DIR=os.path.join(BASE_DIR,'template')
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+# SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = "django-insecure-14$m%70aq1-xqy9z2jt9nva)f_&y5xba3j3g40!3oaqvvyu8_p"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["theoj.herokuapp.com","localhost"]
+ALLOWED_HOSTS = ["35.154.29.43","local_host"]
 
 
 # Application definition
@@ -54,7 +55,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
