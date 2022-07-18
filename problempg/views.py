@@ -39,7 +39,7 @@ def usercode(request,problem_id):
             if language == "PYTH3":
 
                 # copying user code in .py file 
-                py_code=open("E:\online_judge_project\oj\language\\forpy.py","w")
+                py_code=open("language\\forpy.py","w")
                 py_code.write(user_problem_code)
                 py_code.close()
                 
@@ -54,7 +54,7 @@ def usercode(request,problem_id):
                     subprocess.run(["docker","run","-dt","--name","oj-py","python"],shell=True)
                 
                 # copy/paste the .py file in docker container
-                subprocess.run(["docker","cp","E:\online_judge_project\oj\language\\forpy.py","oj-py:/forpy.py"],shell=True)
+                subprocess.run(["docker","cp","language\\forpy.py","oj-py:/forpy.py"],shell=True)
                 # interpreting and running the code on given input and taking the output in a variable in bytes
                 res=subprocess.run(["docker","exec","-i","oj-py","python","forpy.py"],input=testcase_input,capture_output=True,shell=True)
                 # removing the .py file form the docker container
@@ -68,7 +68,7 @@ def usercode(request,problem_id):
             elif language == "C++":
 
                 # copying user code in .cpp file
-                cpp_code=open("E:\online_judge_project\oj\language\\forcpp.cpp","w")
+                cpp_code=open("language\\forcpp.cpp","w")
                 cpp_code.write(user_problem_code)
                 cpp_code.close()
                 
@@ -84,7 +84,7 @@ def usercode(request,problem_id):
                 
                 
                 # copy/paste the .cpp file in docker container 
-                subprocess.run(["docker","cp","E:\online_judge_project\oj\language\\forcpp.cpp","oj-cpp:/forcpp.cpp"],shell=True)             
+                subprocess.run(["docker","cp","language\\forcpp.cpp","oj-cpp:/forcpp.cpp"],shell=True)             
                 # compiling the code
                 res=subprocess.run(["docker","exec","oj-cpp","g++","-o","output","forcpp.cpp"],capture_output=True,shell=True)
                 # checking if the code have errors
@@ -97,7 +97,7 @@ def usercode(request,problem_id):
                 # subprocess.run(["docker","exec","oj-cpp","rm","output"],shell=True)
                  
             elif language == "C":
-                c_code=open("E:\online_judge_project\oj\language\\forc.c","w")
+                c_code=open("language\\forc.c","w")
                 c_code.write(user_problem_code)
                 c_code.close()
                  
@@ -110,7 +110,7 @@ def usercode(request,problem_id):
                 except docker.errors.NotFound:
                     subprocess.run(["docker","run","-dt","--name","oj-c","gcc"],shell=True)
 
-                subprocess.run(["docker","cp","E:\online_judge_project\oj\language\\forc.c","oj-c:/forc.c"],shell=True)
+                subprocess.run(["docker","cp","language\\forc.c","oj-c:/forc.c"],shell=True)
                 res=subprocess.run(["docker","exec","oj-c","g++","-o","output","forc.c"],capture_output=True,shell=True)
                 if res.stderr.decode('utf-8') != "":
                    output="CE"
@@ -126,7 +126,7 @@ def usercode(request,problem_id):
             py_lan=file_type.find(".py")
             cpp_lan=file_type.find(".cpp")
             c_lan=file_type.find(".c")
-            file_path="E:\online_judge_project\oj\media\\"+user_code_file.name
+            file_path="media\\"+user_code_file.name
 
             if py_lan != -1:
                 lang="PYTH3"

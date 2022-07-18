@@ -23,6 +23,7 @@ EMAIL_PORT = EMAIL_PORT
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR=os.path.join(BASE_DIR,'template')
+FILES_DIR=os.path.abspath(os.path.join(BASE_DIR,'language'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -34,7 +35,7 @@ SECRET_KEY = "django-insecure-14$m%70aq1-xqy9z2jt9nva)f_&y5xba3j3g40!3oaqvvyu8_p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["35.154.29.43","local_host"]
+ALLOWED_HOSTS = ["35.154.29.43","127.0.0.1"]
 
 
 # Application definition
