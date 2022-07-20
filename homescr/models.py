@@ -22,7 +22,7 @@ class Solutions(models.Model):
     solution_lang=models.CharField(max_length=7,default="c++")
     verdict=models.CharField(max_length=20)
     uname=models.CharField(max_length=50,default="user")
-    submission_time=models.DateTimeField("submitted_at")
+    submission_time=models.DateTimeField("submitted_at",auto_now_add=True)
 
     def __str__(self) :
         return self.verdict
