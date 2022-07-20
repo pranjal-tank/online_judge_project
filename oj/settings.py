@@ -35,10 +35,9 @@ SECRET_KEY = "django-insecure-14$m%70aq1-xqy9z2jt9nva)f_&y5xba3j3g40!3oaqvvyu8_p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["35.154.29.43","127.0.0.1"]
+ALLOWED_HOSTS = ['13.126.144.76','localhost','127.0.0.1']
 
-
-# Application definition
+#Application definition
 
 INSTALLED_APPS = [
     'widget_tweaks',
@@ -129,8 +128,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = 'static/'
+STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
+
 MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'
 LOGOUT_REDIRECT_URL = "index"

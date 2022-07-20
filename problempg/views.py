@@ -6,7 +6,7 @@ from datetime import datetime
 from homescr.models import Problems,Testcases,Solutions
 from django.core.files.storage import FileSystemStorage
 import docker
-
+from django.conf import settings
 #problem page url request
 def problem_page(request,problem_id):
     problem_detail=Problems.objects.get(id=problem_id)
@@ -38,8 +38,9 @@ def usercode(request,problem_id):
             #if user code is in python language
             if language == "PYTH3":
 
-                # copying user code in .py file 
-                py_code=open("language\\forpy.py","w")
+                # copying user code in .py file
+                filepath = settings.FILES_DIR + "/forpy.py" 
+                py_code=open(filepath,"w")
                 py_code.write(user_problem_code)
                 py_code.close()
                 
@@ -49,16 +50,16 @@ def usercode(request,problem_id):
                     container_state=container.attrs['State']
                     container_is_running=container_state['Status']==Running
                     if not container_is_running:
-                        subprocess.run(["docker","start","oj-py"],shell=True)
+                        subprocess.run(["docker","start","oj-py"],shell=False)
                 except docker.errors.NotFound:
-                    subprocess.run(["docker","run","-dt","--name","oj-py","python"],shell=True)
+                    subprocess.run(["docker","run","-dt","--name","oj-py","python"],shell=False)
                 
                 # copy/paste the .py file in docker container
-                subprocess.run(["docker","cp","language\\forpy.py","oj-py:/forpy.py"],shell=True)
+                subprocess.run(["docker","cp",filepath,"oj-py:/forpy.py"])
                 # interpreting and running the code on given input and taking the output in a variable in bytes
-                res=subprocess.run(["docker","exec","-i","oj-py","python","forpy.py"],input=testcase_input,capture_output=True,shell=True)
+                res=subprocess.run(["docker","exec","-i","oj-py","python","forpy.py"],input=testcase_input,capture_output=True,shell=False)
                 # removing the .py file form the docker container
-                subprocess.run(["docker","exec","oj-py","rm","forpy.py"],shell=True)
+                subprocess.run(["docker","exec","oj-py","rm","forpy.py"],shell=False)
 
                 # checking if the code have errors
                 if res.stderr.decode('utf-8') != "":
@@ -68,7 +69,8 @@ def usercode(request,problem_id):
             elif language == "C++":
 
                 # copying user code in .cpp file
-                cpp_code=open("language\\forcpp.cpp","w")
+                filepath = settings.FILES_DIR + "/forcpp.cpp"
+                cpp_code=open(filepath,"w")
                 cpp_code.write(user_problem_code)
                 cpp_code.close()
                 
@@ -78,26 +80,27 @@ def usercode(request,problem_id):
                     container_state=container.attrs['State']
                     container_is_running=container_state['Status']==Running
                     if not container_is_running:
-                        subprocess.run(["docker","start","oj-cpp"],shell=True)
+                        subprocess.run(["docker","start","oj-cpp"],shell=False)
                 except docker.errors.NotFound:
-                    subprocess.run(["docker","run","-dt","--name","oj-cpp","gcc"],shell=True)
+                    subprocess.run(["docker","run","-dt","--name","oj-cpp","gcc"],shell=False)
                 
                 
                 # copy/paste the .cpp file in docker container 
-                subprocess.run(["docker","cp","language\\forcpp.cpp","oj-cpp:/forcpp.cpp"],shell=True)             
+                subprocess.run(["docker","cp",filepath,"oj-cpp:/forcpp.cpp"])
                 # compiling the code
-                res=subprocess.run(["docker","exec","oj-cpp","g++","-o","output","forcpp.cpp"],capture_output=True,shell=True)
+                res=subprocess.run(["docker","exec","oj-cpp","g++","-o","output","forcpp.cpp"],capture_output=True,shell=False)
                 # checking if the code have errors
                 if res.stderr.decode('utf-8') != "":
-                   output="CE" 
+                   output='CE'
                 # running the code on given input and taking the output in a variable in bytes
-                res=subprocess.run(["docker","exec","-i","oj-cpp","./output"],input=testcase_input,capture_output=True,shell=True)
+                res=subprocess.run(["docker","exec","-i","oj-cpp","./output"],input=testcase_input,capture_output=True,shell=False)
                 # removing the .cpp and .output file form the container
-                # subprocess.run(["docker","exec","oj-cpp","rm","forcpp.cpp"],shell=True)
-                # subprocess.run(["docker","exec","oj-cpp","rm","output"],shell=True)
+                subprocess.run(["docker","exec","oj-cpp","rm","forcpp.cpp"])
+                subprocess.run(["docker","exec","oj-cpp","rm","output"])
                  
             elif language == "C":
-                c_code=open("language\\forc.c","w")
+                filepath = settings.FILES_DIR + "/forc.c"
+                c_code=open(filepath,"w")
                 c_code.write(user_problem_code)
                 c_code.close()
                  
@@ -106,17 +109,17 @@ def usercode(request,problem_id):
                     container_state=container.attrs['State']
                     container_is_running=container_state['Status']==Running
                     if not container_is_running:
-                        subprocess.run(["docker","start","oj-c"],shell=True)
+                        subprocess.run(["docker","start","oj-c"],shell=False)
                 except docker.errors.NotFound:
-                    subprocess.run(["docker","run","-dt","--name","oj-c","gcc"],shell=True)
+                    subprocess.run(["docker","run","-dt","--name","oj-c","gcc"],shell=False)
 
-                subprocess.run(["docker","cp","language\\forc.c","oj-c:/forc.c"],shell=True)
-                res=subprocess.run(["docker","exec","oj-c","g++","-o","output","forc.c"],capture_output=True,shell=True)
+                subprocess.run(["docker","cp",filepath,"oj-c:/forc.c"],shell=False)
+                res=subprocess.run(["docker","exec","oj-c","g++","-o","output","forc.c"],capture_output=True,shell=False)
                 if res.stderr.decode('utf-8') != "":
                    output="CE"
-                res=subprocess.run(["docker","exec","-i","oj-c","./output"],input=testcase_input,capture_output=True,shell=True)
-                subprocess.run(["docker","exec","oj-c","rm","forc.c"],shell=True)
-                subprocess.run(["docker","exec","oj-c","rm","output"],shell=True)
+                res=subprocess.run(["docker","exec","-i","oj-c","./output"],input=testcase_input,capture_output=True,shell=False)
+                subprocess.run(["docker","exec","oj-c","rm","forc.c"])
+                subprocess.run(["docker","exec","oj-c","rm","output"])
         
         elif request.FILES['codefile']:
             user_code_file=request.FILES['codefile']
@@ -126,7 +129,7 @@ def usercode(request,problem_id):
             py_lan=file_type.find(".py")
             cpp_lan=file_type.find(".cpp")
             c_lan=file_type.find(".c")
-            file_path="media\\"+user_code_file.name
+            file_path="media/" + user_code_file.name
 
             if py_lan != -1:
                 lang="PYTH3"
@@ -136,13 +139,13 @@ def usercode(request,problem_id):
                     container_state=container.attrs['State']
                     container_is_running=container_state['Status']==Running
                     if not container_is_running:
-                        subprocess.run(["docker","start","oj-py"],shell=True)
+                        subprocess.run(["docker","start","oj-py"])
                 except docker.errors.NotFound:
-                    subprocess.run(["docker","run","-dt","--name","oj-py","python"],shell=True)
+                    subprocess.run(["docker","run","-dt","--name","oj-py","python"])
 
-                subprocess.run(["docker","cp",file_path,"oj-py:/forpy.py"],shell=True)
-                res=subprocess.run(["docker","exec","-i","oj-py","python","forpy.py"],input=testcase_input,capture_output=True,shell=True)
-                subprocess.run(["docker","exec","oj-py","rm","forpy.py"],shell=True)
+                subprocess.run(["docker","cp",file_path,"oj-py:/forpy.py"])
+                res=subprocess.run(["docker","exec","-i","oj-py","python","forpy.py"],input=testcase_input,capture_output=True)
+                subprocess.run(["docker","exec","oj-py","rm","forpy.py"])
                 os.remove(file_path)
                 if res.stderr.decode('utf-8') != "":
                    output="CE"
@@ -155,17 +158,17 @@ def usercode(request,problem_id):
                     container_state=container.attrs['State']
                     container_is_running=container_state['Status']==Running
                     if not container_is_running:
-                        subprocess.run(["docker","start","oj-cpp"],shell=True)
+                        subprocess.run(["docker","start","oj-cpp"])
                 except docker.errors.NotFound:
-                    subprocess.run(["docker","run","-dt","--name","oj-cpp","gcc"],shell=True)
+                    subprocess.run(["docker","run","-dt","--name","oj-cpp","gcc"])
 
-                subprocess.run(["docker","cp",file_path,"oj-cpp:/forcpp.cpp"],shell=True)
-                res=subprocess.run(["docker","exec","oj-cpp","g++","-o","output","forcpp.cpp"],capture_output=True,shell=True)
+                subprocess.run(["docker","cp",file_path,"oj-cpp:/forcpp.cpp"])
+                res=subprocess.run(["docker","exec","oj-cpp","g++","-o","output","forcpp.cpp"],capture_output=True)
                 if res.stderr.decode('utf-8') != "":
                    output="CE" 
-                res=subprocess.run(["docker","exec","-i","oj-cpp","./output"],input=testcase_input,capture_output=True,shell=True)
-                subprocess.run(["docker","exec","oj-cpp","rm","forcpp.cpp"],shell=True)
-                subprocess.run(["docker","exec","oj-cpp","rm","output"],shell=True)
+                res=subprocess.run(["docker","exec","-i","oj-cpp","./output"],input=testcase_input,capture_output=True)
+                subprocess.run(["docker","exec","oj-cpp","rm","forcpp.cpp"])
+                subprocess.run(["docker","exec","oj-cpp","rm","output"])
                 os.remove(file_path)
             
             elif c_lan != -1:
@@ -176,19 +179,20 @@ def usercode(request,problem_id):
                     container_state=container.attrs['State']
                     container_is_running=container_state['Status']==Running
                     if not container_is_running:
-                        subprocess.run(["docker","start","oj-c"],shell=True)
+                        subprocess.run(["docker","start","oj-c"])
                 except docker.errors.NotFound:
-                    subprocess.run(["docker","run","-dt","--name","oj-c","gcc"],shell=True)
+                    subprocess.run(["docker","run","-dt","--name","oj-c","gcc"])
 
-                subprocess.run(["docker","cp",file_path,"oj-c:/forc.c"],shell=True)
-                res=subprocess.run(["docker","exec","oj-c","g++","-o","output","forc.c"],capture_output=True,shell=True)
+                subprocess.run(["docker","cp",file_path,"oj-c:/forc.c"])
+                res=subprocess.run(["docker","exec","oj-c","g++","-o","output","forc.c"],capture_output=True)
                 if res.stderr.decode('utf-8') != "":
                    output="CE"
-                res=subprocess.run(["docker","exec","-i","oj-c","./output"],input=testcase_input,capture_output=True,shell=True)
-                subprocess.run(["docker","exec","oj-c","rm","forc.c"],shell=True)
-                subprocess.run(["docker","exec","oj-c","rm","output"],shell=True)
+                res=subprocess.run(["docker","exec","-i","oj-c","./output"],input=testcase_input,capture_output=True)
+                subprocess.run(["docker","exec","oj-c","rm","forc.c"])
+                subprocess.run(["docker","exec","oj-c","rm","output"])
                 os.remove(file_path)
             else:
+                os.remove(file_path)
                 context={'problem_detail':problem_detail, 'problem_testcase':problem_testcase,'invalid_file':'Invalid file'}
                 return render(request,'problempg/problem_page.html',context)
 
