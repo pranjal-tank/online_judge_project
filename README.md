@@ -1,6 +1,6 @@
 # THEOJ
 
-A plateform for code submission and evaluation inside docker containers. Incubated features like search problem by code, sort problem by difficulty level, user authentication, user verification.
+A plateform for code submission and evaluation inside docker containers. Incubated features like search problem by code, filter problem by difficulty level, user authentication, user verification.
 
 supports c11, c++14, c++17, c++20, python3.
 
