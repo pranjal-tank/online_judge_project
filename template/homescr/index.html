@@ -40,7 +40,7 @@
         <form method="post" action="{% url 'searchproblem' %}">
             {% csrf_token %}
             <select name="sort_by_diff">
-                <option value="sort by difficulty">sort by difficulty</option>
+                <option value="filter by difficulty">filter by difficulty</option>
                 <option value="easy">easy</option>
                 <option value="medium">medium</option>
                 <option value="hard">hard</option>
