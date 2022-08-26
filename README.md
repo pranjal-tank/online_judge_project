@@ -40,3 +40,5 @@ python3 manage.py runserver
 <img src="https://user-images.githubusercontent.com/78424052/180066916-ca4478a6-c91d-4676-b3c2-ba9a21f62af6.png" width="500">
 <img src="https://user-images.githubusercontent.com/78424052/180066920-5e58de73-38e7-4ead-b6c4-206ff91895d8.png" width="500">  
 <img src="https://user-images.githubusercontent.com/78424052/180066925-f3df1311-d733-4b1a-b47d-b1fc65a26730.png" width="500">
+
+## If you like the project then please give a star.
